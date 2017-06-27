@@ -11,9 +11,11 @@ int main(int argc, const char * argv[]) {
     //insert code here...
     FILE *ft;
     FILE *ft2;
-    char str1[80],lat[9],lon[10],time[7],speed[6],date[7],dire[6];
+    char str1[80],lat[9],lon[10],speed[6],dire[6];
+    int time[7],hour,min,seconds,date[7],year,month,day;
     char str2[80],alt[5];
     int i,j;
+    int count=0;
     ft=fopen("//Users//a20161104582//Desktop//GPS170510.log","r+");
     ft2=fopen("//Users//a20161104582//Desktop//GPS//GPS//output.txt","w+");
     fscanf(ft,"%s%s",str1,str2);
@@ -49,21 +51,48 @@ int main(int argc, const char * argv[]) {
             fprintf(ft2,"东经\n");
             break;
     }
-    for(i=0;i<7;i++)
+    /*for(i=0;i<7;i++)
         time[i]=str1[i+7];
     time[6]='\0';
-    printf("时间（hhmmss)：%s\n",time);
-    fprintf(ft2,"时间（hhmmss)：%s\n",time);
+    printf("时间（hhmmss)：%d\n",time);
+    fprintf(ft2,"时间（hhmmss)：%d\n",time);*/
+    for(i=0;i<7;i++){
+        if(i<6)
+            time[i]=str1[i+7]-48;
+    }
+    hour=time[0]*10+time[1];
+    min=time[2]*10+time[3];
+    seconds=time[4]*10+time[5];
+    if(hour<16)
+        hour=8+hour;
+    else{
+        count++;
+        hour=hour-16;
+    }
+    printf("时间：%d时%d分%d秒\n",hour,min,seconds);
+    fprintf(ft2,"时间：%d时%d分%d秒\n",hour,min,seconds);
     for(i=0;i<6;i++)
         speed[i]=str1[i+39];
     speed[5]='\0';
     printf("地面速率：%s\n",speed);
     fprintf(ft2,"地面速率：%s\n",speed);
-    for(i=0;i<7;i++)
+    /*for(i=0;i<7;i++)
         date[i]=str1[i+51];
     date[6]='\0';
     printf("日期（ddmmyy）：%s\n",date);
-    fprintf(ft2,"日期（ddmmyy）：%s\n",date);
+    fprintf(ft2,"日期（ddmmyy）：%s\n",date);*/
+    for(i=0;i<7;i++){
+        if(i<6)
+            date[i]=str1[i+51]-48;
+    }
+    day=date[0]*10+date[1];
+    month=date[2]*10+date[3];
+    year=date[4]*10+date[5];
+    if(count!= 0) {
+        day++;
+    }
+    printf("日期为：20%d年%d月%d日\n",year,month,day);
+    fprintf(ft2,"日期为：20%d年%d月%d日\n",year,month,day);
     for(i=0;i<6;i++)
         dire[i]=str1[i+45];
     dire[5]='\0';
