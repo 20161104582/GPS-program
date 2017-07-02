@@ -23,8 +23,8 @@ int main(int argc, const char * argv[]) {
     }
     else
     {
-        printf("日期， 时间， 纬度， 纬度方向， 经度， 经度方向， 地面速率， 航向， 海拔\n");
-        fprintf(ft2,"日期， 时间， 纬度， 纬度方向， 经度， 经度方向， 地面速率， 航向， 海拔\n");
+        printf("日期,时间,纬度,纬度方向,经度,经度方向,地面速率,航向,海拔\n");
+        fprintf(ft2,"日期,时间,纬度,纬度方向,经度,经度方向,地面速率,航向,海拔\n");
         while(fscanf(ft,"%s %s",str1,str2)!=EOF)
         {
             for(i=0;i<2;i++)
@@ -42,6 +42,8 @@ int main(int argc, const char * argv[]) {
                 day[i]=str1[i+51];
             }
             day[2]='\0';
+            printf("20%s年%s月%s日,",year,month,day);
+            fprintf(ft2,"20%s年%s月%s日,",year,month,day);
             for(i=0;i<2;i++)
             {
                 hour[i]=str1[i+7];
@@ -57,6 +59,8 @@ int main(int argc, const char * argv[]) {
                 seconds[i]=str1[i+11];
             }
             seconds[2]='\0';
+            printf("%s时%s分%s秒,",hour,min,seconds);
+            fprintf(ft2,"%s时%s分%s秒,",hour,min,seconds);
             for(i=0;i<2;i++)
                 lata[i]=str1[i+16];
             lata[2]='\0';
@@ -65,12 +69,16 @@ int main(int argc, const char * argv[]) {
                 latb[i]=str1[i+18];
             }
             latb[6]='\0';
+            printf("%s'%s,",lata,latb);
+            fprintf(ft2,"%s'%s,",lata,latb);
             switch(str1[25]){
-                case('N'):
-                    printf("北纬\n");
+                case 'N' :
+                    printf("北纬,");
+                    fprintf(ft2,"北纬,");
                     break;
-                case('S'):
-                    printf("南纬\n");
+                case 'S' :
+                    printf("南纬,");
+                    fprintf(ft2,"南纬,");
                     break;
             }
             for(i=0;i<3;i++)
@@ -83,25 +91,33 @@ int main(int argc, const char * argv[]) {
                 lonb[i]=str1[i+30];
             }
             lonb[6]='\0';
+            printf("%s'%s,",lona,lonb);
+            fprintf(ft2,"%s'%s,",lona,lonb);
             switch(str1[37]){
-                case('W'):
-                    printf("西经\n");
+                case 'W' :
+                    printf("西经,");
+                    fprintf(ft2,"西经,");
                     break;
-                case('E'):
-                    printf("东经\n");
+                case 'E' :
+                    printf("东经,");
+                    fprintf(ft2,"东经,");
                     break;
             }
              for(i=0;i<6;i++)
                 speed[i]=str1[i+39];
             speed[5]='\0';
+            printf("%s,",speed);
+            fprintf(ft2,"%s,",speed);
             for(i=0;i<6;i++)
                 dire[i]=str1[i+45];
             dire[5]='\0';
+            printf("%s,",dire);
+            fprintf(ft2,"%s,",dire);
             for(j=0;j<4;j++)
                 alt[j]=str2[j+43];
             alt[4]='\0';
-            printf("20%s年%s月%s日,%s时%s分%s秒,%s'%s,%c,%s'%s,%c,%s公里／小时,%s,%sft\n",year,month,day,hour,min,seconds,lata,latb,str1[25],lona,lonb,str1[37],speed,dire,alt);
-            fprintf(ft2,"20%s年%s月%s日,%s时%s分%s秒,%s'%s,%c,%s'%s,%c,%s公里／小时,%s,%sft\n",year,month,day,hour,min,seconds,lata,latb,str1[25],lona,lonb,str1[37],speed,dire,alt);
+            printf("%sft\n",alt);
+            fprintf(ft2,"%sft\n",alt);
         }
         fclose(ft);
         fclose(ft2);
